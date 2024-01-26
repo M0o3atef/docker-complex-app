@@ -27,12 +27,14 @@ jobs:
     needs: build-test
   
     steps:
+    - uses: actions/checkout@v3
+    
     - name: Build the prod images
       run: | 
-          docker build --tag m0o3atef/complex-app-nginx ./nginx
-          docker build --tag m0o3atef/complex-app-frontend ./client
-          docker build --tag m0o3atef/complex-app-server ./server
-          docker build --tag m0o3atef/complex-app-worker ./worker
+          docker build -t m0o3atef/complex-app-nginx ./nginx
+          docker build -t m0o3atef/complex-app-frontend ./client
+          docker build -t m0o3atef/complex-app-server ./server
+          docker build -t m0o3atef/complex-app-worker ./worker
     
     - name: Push the prod images
       run: |

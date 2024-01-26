@@ -28,7 +28,7 @@ jobs:
   
     steps:
     - uses: actions/checkout@v3
-    
+
     - name: Build the prod images
       run: | 
           docker build -t m0o3atef/complex-app-nginx ./nginx
@@ -38,7 +38,7 @@ jobs:
     
     - name: Push the prod images
       run: |
-          docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+          echo ${{ secrets.DOCKER_PASSWORD }} | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
           docker push m0o3atef/complex-app-nginx
           docker push m0o3atef/complex-app-frontend
           docker push m0o3atef/complex-app-server

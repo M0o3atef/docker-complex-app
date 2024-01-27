@@ -1,36 +1,32 @@
 version: "3"
 
 services:
-  postgres:
-    image: "postgres:latest"
-    environment:
-      - POSTGRES_PASSWORD=postgres_password
-    
-  redis:
-    image: "redis:latest"
-
   frontend:
     image: "m0o3atef/complex-app-frontend"
+    mem_limit: 128m
 
   api-server:
     image: "m0o3atef/complex-app-server"
+    mem_limit: 128m
     environment:
-      - REDISHOST=redis
-      - REDISPORT=6379
-      - PGUSER=postgres
-      - PGPASSWORD=postgres_password
-      - PGHOST=postgres
-      - PGPORT=5432
-      - PGDB=postgres
+      - REDISHOST=$REDISHOST
+      - REDISPORT=$REDISPORT
+      - PGUSER=$PGUSER
+      - PGPASSWORD=$PGPASSWORD
+      - PGHOST=$PGHOST
+      - PGPORT=$PGPORT
+      - PGDB=$PGDB
 
   worker:
     image: "m0o3atef/complex-app-worker"
+    mem_limit: 128m
     environment:
-      - REDISHOST=redis
-      - REDISPORT=6379
+      - REDISHOST=$REDISHOST
+      - REDISPORT=$REDISPORT
 
   nginx:
     image: "m0o3atef/complex-app-nginx"
+    mem_limit: 128m
     restart: always
     ports:
       - '80:80'

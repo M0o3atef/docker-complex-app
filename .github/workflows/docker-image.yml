@@ -44,26 +44,26 @@ jobs:
           docker push m0o3atef/complex-app-server
           docker push m0o3atef/complex-app-worker
   
-  deploy:
+  # deploy:
 
-    runs-on: ubuntu-latest
+  #   runs-on: ubuntu-latest
   
-    needs: push-containers
+  #   needs: push-containers
     
-    steps:  
-    - uses: actions/checkout@v3
+  #   steps:  
+  #   - uses: actions/checkout@v3
 
-    - name: Generate deployment package
-      run: zip -r deploy.zip . -x '*.git*'
+  #   - name: Generate deployment package
+  #     run: zip -r deploy.zip . -x '*.git*'
     
-    - name: Deploy to EB
-      uses: einaregilsson/beanstalk-deploy@v21
-      with:
-        aws_access_key: ${{ secrets.AWS_ACCESS_KEY }}
-        aws_secret_key: ${{ secrets.AWS_SECRET_KEY }}
-        application_name: Multi-docker
-        environment_name: Multi-docker-env
-        version_label: ${{ github.sha }}
-        region: eu-north-1
-        deployment_package: deploy.zip
-        existing_bucket_name: elasticbeanstalk-eu-north-1-877533349104
+  #   - name: Deploy to EB
+  #     uses: einaregilsson/beanstalk-deploy@v21
+  #     with:
+  #       aws_access_key: ${{ secrets.AWS_ACCESS_KEY }}
+  #       aws_secret_key: ${{ secrets.AWS_SECRET_KEY }}
+  #       application_name: Multi-docker
+  #       environment_name: Multi-docker-env
+  #       version_label: ${{ github.sha }}
+  #       region: eu-north-1
+  #       deployment_package: deploy.zip
+  #       existing_bucket_name: elasticbeanstalk-eu-north-1-877533349104

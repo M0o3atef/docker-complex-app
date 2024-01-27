@@ -20,7 +20,7 @@ jobs:
       run: docker run -e CI=true m0o3atef/complex-docker-frontend-dev npm run test
   
 
-  build-push:
+  push-containers:
 
     runs-on: ubuntu-latest
   
@@ -51,6 +51,8 @@ jobs:
     needs: build-push
     
     steps:  
+    - uses: actions/checkout@v3
+
     - name: Generate deployment package
       run: zip -r deploy.zip . -x '*.git*'
     
